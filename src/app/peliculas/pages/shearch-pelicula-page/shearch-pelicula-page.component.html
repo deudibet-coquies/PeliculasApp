@@ -1,0 +1,88 @@
+
+<div class="flex flex-column p-4">
+    <h2>Buscador</h2>
+
+    <mat-form-field>
+        <mat-label>Buscar pelicula - Nombre o Descripción</mat-label>
+        <input 
+            matInput 
+            type="text" 
+            [formControl]="mySearchInput"
+            [matAutocomplete]="auto"
+            (input)="searchPelicula()">
+        <mat-autocomplete autoActiveFirstOption 
+            #auto="matAutocomplete"
+            (optionSelected)="onSelectedOption( $event )">
+            <mat-option *ngFor="let pelicula of peliculas " [value]="pelicula">
+                {{pelicula.nombre}}
+            </mat-option>
+            <mat-option
+            value="" *ngIf="peliculas.length === 0 && mySearchInput.value && mySearchInput.value.length > 0"
+            >
+                No se encontre nada con el termino <strong>{{mySearchInput.value}}</strong>.
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+   <!-- {{ peliculasSelected | json }} -->
+   <!--   {{ mySearchInput.touched | json }}
+   {{ mySearchInput.pristine | json }} -->
+
+</div>
+
+<ng-template #divLoading>
+    <mat-grid-list cols="1">
+        <mat-grid-tile>
+            <mat-spinner></mat-spinner>
+        </mat-grid-tile>
+    </mat-grid-list>
+</ng-template>
+
+
+ <div *ngIf="peliculasSelected; else divLoading" class="grid p-2">
+
+    <mat-card class="col-12 sm:col-6">
+  
+      <mat-card-header>
+        <mat-card-title>{{ peliculasSelected.nombre }}</mat-card-title>
+        <mat-card-subtitle>{{peliculasSelected.duracion }} min</mat-card-subtitle>
+      </mat-card-header>
+  
+      <img mat-card-image height="250" width="250" src="../../../../assets/no-image.png" [alt]="peliculasSelected.nombre">
+      <!-- <img [src]="hero | heroImage" [alt]="hero.superhero" mat-card-image  /> -->
+  
+    </mat-card>
+  
+    <mat-card class="col-12 sm:col-6">
+  
+      <mat-card-header>
+        <mat-card-title>Información</mat-card-title>
+        <mat-card-subtitle>{{ peliculasSelected.descripcion }}</mat-card-subtitle>
+      </mat-card-header>
+  
+       <!--   <mat-card-content>
+     <mat-list>
+          <mat-list-item>{{ hero.first_appearance }}</mat-list-item>
+          <mat-list-item>{{ hero.characters }}</mat-list-item>
+          <mat-list-item>{{ hero.publisher }}</mat-list-item>
+          <mat-list-item>{{ hero.alter_ego }}</mat-list-item>
+        </mat-list>
+  
+        <button
+          mat-button
+          color="warn"
+          [routerLink]="['/peliculas/list-peliculas']"
+        >
+          Regresar
+        </button>
+  
+      </mat-card-content> -->
+  
+  
+    </mat-card>  
+  
+</div> 
+
+
+
+

@@ -1,0 +1,72 @@
+<h1>
+    Editar / Agregar
+    Pelicula
+    <small>Avatar</small>
+</h1>
+
+<mat-divider class="mb-2"></mat-divider>
+
+<div class="grid">
+
+    <div class="col-12 sm:col-6">
+        <mat-card>
+            <mat-card-content>
+                <div class="grid">
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput name="nombre">
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Ruta de la imagen</mat-label>
+                        <input matInput name="rutaImagen">
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Descripción</mat-label>
+                        <textarea matInput name="descripcion"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Duración</mat-label>
+                        <input matInput type="number" name="duracion">
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Clasificación</mat-label>
+                        <mat-select name="clasificacion">
+                            <mat-option *ngFor="let rating of ratings" [value]="rating.value">
+                                {{rating.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Categoría</mat-label>
+                        <mat-select name="categoriaId">
+                            <mat-option *ngFor="let category of categories" [value]="category.id">
+                                {{category.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>                    
+                </div>
+                <div class="flex justify-content-between">
+                    <button mat-flat-button color="warn">
+                        Borrar
+                    </button>
+                    <button mat-flat-button color="primary">
+                        <mat-icon>save</mat-icon>
+                        Guardar
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-12 sm:col-6">
+        <mat-card>
+            <img src="" alt="imagen del héroe" mat-card-image>
+          </mat-card>>
+    </div>
+
+</div>

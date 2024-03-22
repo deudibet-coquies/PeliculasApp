@@ -1,0 +1,25 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title [title]="pelicula.nombre">{{ pelicula.nombre | truncate:15 }}</mat-card-title>
+        <mat-card-subtitle>{{pelicula.clasificacion}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="../../../../assets/no-image.png" [alt]="pelicula.nombre">
+    
+    <mat-card-content class="mt-2">
+        <h4>{{pelicula.duracion}} - minutos</h4>
+        <p>{{pelicula.descripcion}}</p>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+        <button mat-button [routerLink]="['/peliculas/edit', pelicula.id]" mat-raised color="primary">
+            <mat-icon>edit</mat-icon>
+            Editar
+        </button>
+        <span class="spacer"></span>
+        <button mat-button [routerLink]="['/peliculas', pelicula.id]" mat-raised color="primary">
+            <mat-icon>more_horiz</mat-icon>
+            Mas
+        </button>
+    </mat-card-actions>
+</mat-card>

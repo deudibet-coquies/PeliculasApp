@@ -1,0 +1,12 @@
+<h1>
+    Listado de Peliculas.
+</h1>
+<mat-divider></mat-divider>
+
+<div class="grid bm-8 pt-3">
+    <div *ngFor="let pelicula of peliculas" 
+    class="col-12 sm:col-4 md:col-3 xl:col-2">
+        <peliculas-card [pelicula]="pelicula" ></peliculas-card>
+    </div>
+</div>
+

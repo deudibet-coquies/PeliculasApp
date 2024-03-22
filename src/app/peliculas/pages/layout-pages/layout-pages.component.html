@@ -1,0 +1,49 @@
+<mat-sidenav-container fullscreen>
+    <!-- sade -->
+    <mat-sidenav #sidenav mode="push" [ngStyle]="{ width:'300px' }">  
+        <mat-toolbar>
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="spacer"></span>
+            <span> Menú </span>
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <mat-list-item 
+            (click)="sidenav.toggle()" 
+            *ngFor="let item of sidebarItem"
+            [routerLink]="item.url">
+                <mat-icon class="justify">
+                    {{item.icon}}
+                </mat-icon>
+                {{item.label}}
+            </mat-list-item>
+        </mat-nav-list>
+       
+    </mat-sidenav>
+    <!-- toolbar -->
+    <mat-toolbar color="primary" title="Menú">
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>
+                menu
+            </mat-icon>    
+        </button>
+        <span class="spacer"></span> 
+
+        <button mat-icon-button title="Cerrar sesión">
+            <mat-icon>
+                logout
+            </mat-icon>    
+        </button>
+    </mat-toolbar>
+
+
+    <div class="container p-2">
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-sidenav-container>
+
+
+

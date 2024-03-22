@@ -1,0 +1,29 @@
+<div class="flex flex-column">
+    <span class="text-lg flex mb-4 justify-content-center">Registro</span>
+
+    <div class="flex mb-4 justify-content-center">
+        <img  src="./favicon.ico" alt="Icono" width="50" height="50">
+    </div>
+
+    <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput placeholder="Nombre de usuario">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" placeholder="Contraseña">
+    </mat-form-field>
+
+    <button mat-button mat-flat-button color="primary">
+        <mat-icon>save</mat-icon> Iniciar sesión</button>
+
+    <div class="flex justify-content-end mt-5">
+        <a routerLink="/auth/login">¿ya tienes cuenta?</a>
+    </div>
+</div>
