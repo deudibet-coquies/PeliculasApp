@@ -14,3 +14,5 @@ export interface Pelicula {
     fechaCreacion: string;
     categoriaId:   number;
 }
+
+

@@ -14,38 +14,38 @@
                 <div class="grid">
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Nombre</mat-label>
-                        <input matInput name="nombre">
+                        <input matInput name="nombre" required>
                     </mat-form-field>
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Ruta de la imagen</mat-label>
-                        <input matInput name="rutaImagen">
+                        <input matInput name="rutaImagen" required>
                     </mat-form-field>
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Descripción</mat-label>
-                        <textarea matInput name="descripcion"></textarea>
+                        <textarea matInput name="descripcion" required></textarea>
                     </mat-form-field>
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Duración</mat-label>
-                        <input matInput type="number" name="duracion">
+                        <input matInput type="number" name="duracion" required>
                     </mat-form-field>
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Clasificación</mat-label>
-                        <mat-select name="clasificacion">
-                            <mat-option *ngFor="let rating of ratings" [value]="rating.value">
-                                {{rating.viewValue}}
+                        <mat-select name="clasificacion" required>
+                            <mat-option *ngFor="let item of clasificacion" [value]="item.id">
+                                {{item.value}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Categoría</mat-label>
-                        <mat-select name="categoriaId">
-                            <mat-option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
+                        <mat-select name="categoriaId" required>
+                            <mat-option *ngFor="let category of categorias" [value]="category.id">
+                                {{category.nombre}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>                    

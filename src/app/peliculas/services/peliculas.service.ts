@@ -1,20 +1,23 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
-import { CacheStore, Categoria } from '../interfaces/Categoria';
+import { CacheStore, Categoria, Clasificacion } from '../interfaces/Categoria';
 import { CachePeliculaStore, Pelicula } from '../interfaces/pelicula';
 import { environment } from '../../../environments/environments';
 
 // const URL_API_PRO = 'http://localhost:9096'
 // const URL_API_PEL = 'http://localhost:9095'
+
+const token ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEwNjIyODgsImV4cCI6MTcxMTE0ODY4OCwiaWF0IjoxNzExMDYyMjg4fQ.K1JusF8geV0hbQVch1h1MFJohYaIMNaBgqsPyFjsz4o'
 @Injectable({
   providedIn: 'root'
 })
 export class PeliculasService {
   public ListCategorias: Categoria[] = [];
   public ListPeliculas: Pelicula[] = [];
+  public ListClasificaciones: Clasificacion[] = [];
   private urlApi = environment.URL_API_PEL
-
+  private urlApiLocal = environment.API_ASSETS
   public cacheStore: CacheStore = {
    categoria: this.ListCategorias
   };
@@ -26,7 +29,6 @@ export class PeliculasService {
     // console.log('categoriaStore',this.cacheStore);
     // this.loadFromLocalStorage();
   }
-
 
   private saveToLocalStorage(storage:string, list?: CachePeliculaStore | CacheStore ) {
     localStorage.setItem( storage, JSON.stringify( list ));
@@ -68,6 +70,29 @@ export class PeliculasService {
   }
 
 
+  crearPelicula(pelicula: Pelicula): Observable<Pelicula> {
+    const headers = new HttpHeaders()
+      .set('Authorization', token ) // Reemplaza 'tu_token' con tu token de autenticación
+      .set('Content-Type', 'application/json');  
+    return this.http.post<Pelicula>(`${this.urlApi}/api/peliculas`, pelicula, { headers });
+  }
+
+  actualizarPelicula(pelicula: Pelicula): Observable<Pelicula> {
+    const headers = new HttpHeaders()
+      .set('Authorization', token ) // Reemplaza 'tu_token' con tu token de autenticación
+      .set('Content-Type', 'application/json');  
+    return this.http.patch<Pelicula>(`${this.urlApi}/api/peliculas/${pelicula.id}`, pelicula, { headers });
+  }  
+
+  eliminarPelicula(peliculaId:number): Observable<boolean> {
+    const storage: string = 'peliculaStore';
+    return this.http.delete(`${this.urlApi}/api/peliculas/${peliculaId}`).pipe(
+      catchError(error => of(false)),
+      map(resp => true)
+    );
+  }
+
+
   getCategorias(): Observable<Categoria[]> {
     const storage: string = 'categoriaStore';
     return this.http.get<Categoria[]>(`${this.urlApi}/api/categorias`).pipe(
@@ -76,11 +101,13 @@ export class PeliculasService {
       catchError(error => of([])),
     );
   }
-
-
-
  
-
+  getClasificacion(): Observable<Clasificacion[]> {
+    return this.http.get<Clasificacion[]>(`${this.urlApiLocal}`).pipe(
+      map(res => this.ListClasificaciones = res),
+      catchError(error => of([])),
+    );
+  }
 
   
 }

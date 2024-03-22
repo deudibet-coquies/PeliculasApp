@@ -1,13 +1,19 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title [title]="pelicula.nombre">{{ pelicula.nombre | truncate:15 }}</mat-card-title>
-        <mat-card-subtitle>{{pelicula.clasificacion}}</mat-card-subtitle>
+        <mat-card-subtitle>clasificación {{ pelicula.clasificacion | valueById: clasificacion }} años</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image src="../../../../assets/no-image.png" [alt]="pelicula.nombre">
     
     <mat-card-content class="mt-2">
         <h4>{{pelicula.duracion}} - minutos</h4>
-        <p>{{pelicula.descripcion}}</p>
+        <p>
+            <mat-chip-listbox>
+                <mat-chip >
+                  {{ pelicula.categoriaId| valueById: categorias  }}
+                </mat-chip>
+            </mat-chip-listbox>
+            {{pelicula.descripcion}}</p>
     </mat-card-content>
     <mat-divider></mat-divider>
 

@@ -14,6 +14,7 @@ import { CategoriasPagesComponent } from './pages/categorias-pages/categorias-pa
 import { CardComponent } from './components/card/card.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ValueByIdPipe } from './pipes/value-by-id.pipe';
 
 
 
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         ShearchPeliculaPageComponent,
         CategoriasPagesComponent,
         CardComponent,
-        TruncatePipe
+        TruncatePipe,
+        ValueByIdPipe
     ],
     imports: [
         CommonModule,

@@ -1,3 +1,47 @@
-<pre>
-    {{categorias | json}}
-</pre>
+<h1>
+   Categorias
+</h1>
+<mat-divider class="mb-2"></mat-divider>
+<div class="grid">
+    <div class="col-12 sm:col-6">
+        <div *ngIf="categorias.length === 0; else table" class="alert alert-warning text-center">
+            <p>No hay paices</p>
+        </div>
+
+        <ng-template #table>
+            <table  class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Icon</th>
+                    <th scope="col">Bandera</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Capital</th>
+                    <th scope="col">Poblaciòn</th>
+                    <th scope="col"></th>
+                    <!-- Agrega más columnas según sea necesario -->
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let coutry of categorias; let i = index">
+                    <!-- <td>{{i + 1}}</td>
+                    <td>{{coutry.flag}}</td>
+                    <td>
+                        <img [src]="coutry.flags.svg" [alt]="coutry.name.common">
+                    </td>
+                    <td>{{coutry.name.common}}</td>
+                    <td>{{coutry.capital}}</td>
+                    <td>{{coutry.population | number}}</td>
+                    <td><a [routerLink]="[ '/countries/by/', coutry.cca3]" href="#">Ver mas...</a></td> -->
+                    <!-- Agrega más columnas según sea necesario -->
+                </tr>
+                </tbody>
+            </table>
+        </ng-template>
+
+    </div>
+</div>
+
+
+
+

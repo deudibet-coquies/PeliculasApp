@@ -9,3 +9,8 @@ export interface Categoria {
     id:     number;
     nombre: string;
 }
+
+export interface Clasificacion {
+    id:           number;
+    value:        string;
+}

@@ -14,9 +14,7 @@
             (click)="sidenav.toggle()" 
             *ngFor="let item of sidebarItem"
             [routerLink]="item.url">
-                <mat-icon class="justify">
-                    {{item.icon}}
-                </mat-icon>
+            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
                 {{item.label}}
             </mat-list-item>
         </mat-nav-list>
