@@ -1,7 +1,5 @@
 <h1>
-    Editar / Agregar
-    Pelicula
-    <small>Avatar</small>
+  {{ corrrenPelicula.id ? 'Editar Pelicula ' + corrrenPelicula.nombre  : 'Agregar Pelicula Nueva.'}}
 </h1>
 
 <mat-divider class="mb-2"></mat-divider>
@@ -11,50 +9,53 @@
     <div class="col-12 sm:col-6">
         <mat-card>
             <mat-card-content>
-                <div class="grid">
-                    <mat-form-field class="col-12 sm:col-6">
+                <form class="grid" [formGroup]="peliculaForm">
+                    <mat-form-field class="col-12">
                         <mat-label>Nombre</mat-label>
-                        <input matInput name="nombre" required>
+                        <input matInput formControlName="nombre" name="nombre" required>
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12">
                         <mat-label>Ruta de la imagen</mat-label>
-                        <input matInput name="rutaImagen" required>
+                        <input matInput formControlName="rutaImagen" name="rutaImagen" required>
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12">
                         <mat-label>Descripción</mat-label>
-                        <textarea matInput name="descripcion" required></textarea>
+                        <textarea matInput formControlName="descripcion" name="descripcion" required></textarea>
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 sm:col-4">
                         <mat-label>Duración</mat-label>
-                        <input matInput type="number" name="duracion" required>
+                        <input matInput formControlName="duracion" type="number" name="duracion" required>
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 sm:col-4">
                         <mat-label>Clasificación</mat-label>
-                        <mat-select name="clasificacion" required>
+                        <mat-select formControlName="clasificacion" name="clasificacion" required>
                             <mat-option *ngFor="let item of clasificacion" [value]="item.id">
                                 {{item.value}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 sm:col-4">
                         <mat-label>Categoría</mat-label>
-                        <mat-select name="categoriaId" required>
+                        <mat-select  formControlName="categoriaId" name="categoriaId" required>
                             <mat-option *ngFor="let category of categorias" [value]="category.id">
                                 {{category.nombre}}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>                    
-                </div>
+                    </mat-form-field>  
+                </form>
                 <div class="flex justify-content-between">
-                    <button mat-flat-button color="warn">
+                    <button *ngIf="corrrenPelicula.id" 
+                        (click)="onDeeletePelicula()" 
+                        mat-flat-button color="warn">
                         Borrar
                     </button>
-                    <button mat-flat-button color="primary">
+                    <span></span>
+                    <button mat-flat-button color="primary" (click)="crearPelicula()">
                         <mat-icon>save</mat-icon>
                         Guardar
                     </button>
@@ -65,8 +66,13 @@
 
     <div class="col-12 sm:col-6">
         <mat-card>
-            <img src="" alt="imagen del héroe" mat-card-image>
-          </mat-card>>
+            <img height="550" [src]=" corrrenPelicula | heroImage" [alt]="" mat-card-image>
+          </mat-card>
     </div>
 
 </div>
+
+
+<!-- <pre>
+{{corrrenPelicula | json}}
+</pre> -->

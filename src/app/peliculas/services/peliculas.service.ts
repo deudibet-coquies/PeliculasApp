@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environments';
 // const URL_API_PRO = 'http://localhost:9096'
 // const URL_API_PEL = 'http://localhost:9095'
 
-const token ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEwNjIyODgsImV4cCI6MTcxMTE0ODY4OCwiaWF0IjoxNzExMDYyMjg4fQ.K1JusF8geV0hbQVch1h1MFJohYaIMNaBgqsPyFjsz4o'
+const token ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEyMjUwNDIsImV4cCI6MTcxMTMxMTQ0MiwiaWF0IjoxNzExMjI1MDQyfQ.GYp08ypET1hkrPKxrtnVkyApvewSKPanmH_bPXj53Lw'
 @Injectable({
   providedIn: 'root'
 })
@@ -85,10 +85,13 @@ export class PeliculasService {
   }  
 
   eliminarPelicula(peliculaId:number): Observable<boolean> {
-    const storage: string = 'peliculaStore';
-    return this.http.delete(`${this.urlApi}/api/peliculas/${peliculaId}`).pipe(
-      catchError(error => of(false)),
-      map(resp => true)
+    const headers = new HttpHeaders()
+      .set('Authorization', token ) // Reemplaza 'tu_token' con tu token de autenticación
+      .set('Content-Type', 'application/json'); 
+      console.log('este el id a eliminar',peliculaId);
+    return this.http.delete(`${this.urlApi}/api/peliculas/${peliculaId}`,{ headers }).pipe(
+      map(resp => true),
+      catchError(error => of(false)),      
     );
   }
 

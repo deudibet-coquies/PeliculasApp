@@ -15,6 +15,8 @@ import { CardComponent } from './components/card/card.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValueByIdPipe } from './pipes/value-by-id.pipe';
+import { HeroImagePipe } from './pipes/hero-image.pipe';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -28,7 +30,9 @@ import { ValueByIdPipe } from './pipes/value-by-id.pipe';
         CategoriasPagesComponent,
         CardComponent,
         TruncatePipe,
-        ValueByIdPipe
+        ValueByIdPipe,
+        HeroImagePipe,
+        ConfirmDialogComponent
     ],
     imports: [
         CommonModule,

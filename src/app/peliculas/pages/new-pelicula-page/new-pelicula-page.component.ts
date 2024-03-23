@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { PeliculasService } from '../../services/peliculas.service';
 import { Categoria, Clasificacion } from '../../interfaces/Categoria';
-import { forkJoin } from 'rxjs';
+import { forkJoin, switchMap } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Pelicula } from '../../interfaces/pelicula';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-new-pelicula-page',
@@ -10,16 +16,55 @@ import { forkJoin } from 'rxjs';
 })
 export class NewPeliculaPageComponent implements OnInit {
 
+  public peliculaForm: FormGroup;
+
   public categorias: Categoria[] = [];
   public clasificacion: Clasificacion[] = [];
-  constructor(private service: PeliculasService) {}
- 
- 
+  public pelicula: Pelicula | undefined;
+  public isLoading: boolean = false;
+
+  constructor(
+    private service: PeliculasService,
+    private fb: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private _sn: MatSnackBar,
+    public dialog: MatDialog
+  ) {
+
+    this.peliculaForm = this.fb.group({
+
+      id: [''],
+      nombre: ['', Validators.required],
+      rutaImagen: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      duracion: ['', Validators.required],
+      clasificacion: ['', Validators.required],
+      fechaCreacion: [''],
+      categoriaId: ['', Validators.required],
 
 
+    });
+
+  }
 
   ngOnInit(): void {
     this.fetchDataList();
+    if (!this.router.url.includes('edit')) return
+
+    this.activatedRoute.params
+      .pipe(
+        switchMap(({ id }) => this.service.getpeliculasById(id))
+      )
+      .subscribe(resp => {
+        if (!resp) {
+          this.router.navigateByUrl('')
+        }
+        this.pelicula = resp;
+        this.setData(this.pelicula);
+      });
+
+
   }
 
   fetchDataList(): void {
@@ -30,7 +75,6 @@ export class NewPeliculaPageComponent implements OnInit {
       ([lista1, lista2]) => {
         this.categorias = lista1;
         this.clasificacion = lista2;
-        console.log('this.clasificacion ',this.clasificacion );
       },
       error => {
         console.error('Error al cargar datos:', error);
@@ -39,30 +83,78 @@ export class NewPeliculaPageComponent implements OnInit {
     );
   }
 
+  setData(data: Pelicula | undefined){
+    this.peliculaForm.reset(data);
+    // this.peliculaForm.setValue({
+    //   id: data?.id,
+    //   nombre: data?.nombre,
+    //   rutaImagen: data?.rutaImagen,
+    //   descripcion: data?.descripcion,
+    //   duracion: data?.duracion,
+    //   clasificacion: data?.clasificacion,
+    //   fechaCreacion: data?.fechaCreacion,
+    //   categoriaId: data?.categoriaId,
+    // })
+  }
 
-
-  
+  get corrrenPelicula(): Pelicula {
+    const peli = this.peliculaForm.value as Pelicula
+    return peli
+  }
 
   crearPelicula(): void {
-    const pelicula = {
-      "id": 0,
-      "nombre": "Avarar 2",
-      "rutaImagen": "urll",
-      "descripcion": "Un marine es enviado a un planeta alienígena en una misión única.",
-      "duracion": 200,
-      "clasificacion": 2,
-      "fechaCreacion": "2024-03-22T18:55:22.140Z",
-      "categoriaId": 3
-    };
-    this.service.crearPelicula(pelicula).subscribe(response => {
-      console.log('Película creada:', response);
-      // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito al usuario, etc.
+    if (this.peliculaForm.invalid) return
+    if (this.corrrenPelicula.id) {
+      this.service.actualizarPelicula(this.corrrenPelicula).subscribe(response => {
+        this.router.navigate(['/peliculas/edit',response.id])
+        this.showSnackBar(`Se a actualizado de forma exitosa la pelicula, ${this.peliculaForm.value.nombre}` )
+      }, error => {
+        console.error('Error al crear película:', error);
+        // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario, etc.
+      });
+      return
+    }
+
+    this.corrrenPelicula.id = 0
+    this.corrrenPelicula.fechaCreacion = '2024-03-22T22:13:16.084Z'
+    this.service.crearPelicula(this.corrrenPelicula).subscribe(response => {
+      this.showSnackBar(`Se a creado de forma exitosa la pelicula, ${response.nombre}` ),
+      this.router.navigate(['/peliculas/list-peliculas'])
     }, error => {
       console.error('Error al crear película:', error);
-      // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario, etc.
+    });
+
+
+  }
+
+  onDeeletePelicula(){
+
+    // dialogRef.afterClosed()
+    // .pipe(
+    //   filter( (result: boolean) => result ),  //condicional 
+    //   switchMap( () => this.heroesService.deleteHeroById( this.currentHero.id )), // ava se manda el servicio
+    //   filter( (wasDeleted: boolean) => wasDeleted ), // lo deja avanzar solo si lo elimina
+    // )
+    // .subscribe(() => {
+    //   this.router.navigate(['/heroes']);  // se redirige
+    // });
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: this.peliculaForm.value,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.service.eliminarPelicula(this.corrrenPelicula.id).subscribe(res => {
+          if(res)
+          this.router.navigate(['/peliculas/list-peliculas'])
+        })
     });
   }
 
+  showSnackBar(m:string):void{
+   this._sn.open(m, 'ok', {
+    duration:3000,    
+   })
+  }
 
 
 

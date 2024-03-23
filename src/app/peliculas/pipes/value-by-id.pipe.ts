@@ -12,7 +12,6 @@ export class ValueByIdPipe implements PipeTransform {
       return '';
     }
     const item = array.find(item => item.id === id);
-    console.log({id,array,item});
     return item ? item.nombre || item.value : null;
 
   }

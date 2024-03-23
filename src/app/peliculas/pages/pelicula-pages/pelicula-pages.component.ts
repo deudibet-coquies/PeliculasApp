@@ -34,7 +34,6 @@ export class PeliculaPagesComponent implements OnInit {
         }
         this.pelicula = resp;
         this.isLoading = false;
-        console.log('tenemos un pais',this.pelicula);
     });
     
   }

@@ -33,7 +33,6 @@ export class CardComponent implements OnInit{
       ([lista1, lista2]) => {
         this.categorias = lista1;
         this.clasificacion = lista2;
-        console.log('this.clasificacion ',this.clasificacion );
       },
       error => {
         console.error('Error al cargar datos:', error);
