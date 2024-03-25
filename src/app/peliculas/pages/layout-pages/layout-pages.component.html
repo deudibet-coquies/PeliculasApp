@@ -28,8 +28,8 @@
             </mat-icon>    
         </button>
         <span class="spacer"></span> 
-
-        <button mat-icon-button title="Cerrar sesión">
+        <span><strong>{{user?.result?.usuario?.userName}}</strong></span>
+        <button (click)="onlogout()" mat-icon-button title="Cerrar sesión">
             <mat-icon>
                 logout
             </mat-icon>    

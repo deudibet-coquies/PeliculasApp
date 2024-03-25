@@ -4,18 +4,19 @@
     <div class="flex mb-4 justify-content-center">
         <img  src="./favicon.ico" alt="Icono" width="50" height="50">
     </div>
+    <form class="grid" [formGroup]="loginForm">
+        <mat-form-field>
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput formControlName="nombreUsuario" name="nombreUsuario" required placeholder="Nombre de usuario">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" name="password" required type="password" placeholder="Contraseña">
+        </mat-form-field>
+    </form>
 
-    <mat-form-field>
-        <mat-label>Nombre de usuario</mat-label>
-        <input matInput placeholder="Nombre de usuario">
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Contraseña</mat-label>
-        <input matInput type="password" placeholder="Contraseña">
-    </mat-form-field>
-
-    <button mat-button mat-flat-button color="primary">
+    <button (click)="onLogin()" mat-button mat-flat-button color="primary">
         <mat-icon>save</mat-icon> Iniciar sesión</button>
 
     <div class="flex justify-content-end mt-5">

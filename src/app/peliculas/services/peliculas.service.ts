@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environments';
 // const URL_API_PRO = 'http://localhost:9096'
 // const URL_API_PEL = 'http://localhost:9095'
 
-const token ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEyMjUwNDIsImV4cCI6MTcxMTMxMTQ0MiwiaWF0IjoxNzExMjI1MDQyfQ.GYp08ypET1hkrPKxrtnVkyApvewSKPanmH_bPXj53Lw'
+const token ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEzODEyMzQsImV4cCI6MTcxMTQ2NzYzNCwiaWF0IjoxNzExMzgxMjM0fQ.bj0_MwkltPmBPVVaMNsBzssnqKHQUcPv6UAbchEam8Q'
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +16,8 @@ export class PeliculasService {
   public ListCategorias: Categoria[] = [];
   public ListPeliculas: Pelicula[] = [];
   public ListClasificaciones: Clasificacion[] = [];
-  private urlApi = environment.URL_API_PEL
-  private urlApiLocal = environment.API_ASSETS
+  private urlApi = environment.URL_API_PEL;
+  private urlApiLocal = environment.API_ASSETS;
   public cacheStore: CacheStore = {
    categoria: this.ListCategorias
   };
@@ -47,7 +47,7 @@ export class PeliculasService {
     const storage: string = 'peliculaStore';
     return this.http.get<Pelicula[]>(`${this.urlApi}/api/peliculas`).pipe(
       tap( pelicula => this.cachePeliculasStore.pelicula = pelicula),
-      tap( () => this.saveToLocalStorage(storage) ),
+     // tap( () => this.saveToLocalStorage(storage) ),
       catchError(error => of([])),
     );
   }
@@ -100,7 +100,7 @@ export class PeliculasService {
     const storage: string = 'categoriaStore';
     return this.http.get<Categoria[]>(`${this.urlApi}/api/categorias`).pipe(
       tap( categoria => this.cacheStore.categoria = categoria),
-      tap( () => this.saveToLocalStorage(storage) ),
+     // tap( () => this.saveToLocalStorage(storage) ),
       catchError(error => of([])),
     );
   }
@@ -114,3 +114,18 @@ export class PeliculasService {
 
   
 }
+
+
+// {
+//   "statusCode": 200,
+//   "isSuccess": true,
+//   "errorMessages": [],
+//   "result": {
+//     "usuario": {
+//       "id": "2c9a098d-a61b-4aa7-a0b9-2f8f948f78f1",
+//       "userName": "Emilio@gmail.com",
+//       "nombre": "emilio coquies"
+//     },
+//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEyMjUwNDIsImV4cCI6MTcxMTMxMTQ0MiwiaWF0IjoxNzExMjI1MDQyfQ.GYp08ypET1hkrPKxrtnVkyApvewSKPanmH_bPXj53Lw"
+//   }
+// }

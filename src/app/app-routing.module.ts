@@ -1,15 +1,21 @@
 import { Component, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanMatch } from '@angular/router';
 import { Error404PagesComponent } from './shared/pages/error404-pages/error404-pages.component';
+import { authGuard } from './auth/guards/Auth.guard';
+import { publicGuard } from './auth/guards/Public.guard';
 
 const routes: Routes = [
   {
     path:'auth', 
-    loadChildren: () => import('./auth/auth.module').then(m=>m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then(m=>m.AuthModule),
+    canActivate: [publicGuard],
+    canMatch: [publicGuard]
   },
   {
     path:'peliculas', 
-    loadChildren: () => import('./peliculas/peliculas.module').then(m=>m.PeliculasModule)
+    loadChildren: () => import('./peliculas/peliculas.module').then(m=>m.PeliculasModule),
+    canActivate: [authGuard],
+    canMatch: [authGuard]
   },
   {
     path:'404', component:Error404PagesComponent
@@ -18,7 +24,7 @@ const routes: Routes = [
     path:'', redirectTo:'peliculas',pathMatch:'full'
   },
   {
-    path:'**', redirectTo:''
+    path:'**', redirectTo:'404'
   }
 
 ];
