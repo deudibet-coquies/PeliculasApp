@@ -14,6 +14,9 @@ export class CardComponent implements OnInit{
 
   @Input()
   public pelicula!: Pelicula;
+
+  @Input()
+  public public: boolean = true;
   
   public categorias: Categoria[] = [];
   public clasificacion: Clasificacion[] = [];

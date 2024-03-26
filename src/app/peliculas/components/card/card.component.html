@@ -17,7 +17,7 @@
     </mat-card-content>
     <mat-divider></mat-divider>
 
-    <mat-card-actions>
+    <mat-card-actions *ngIf="public">
         <button mat-button [routerLink]="['/peliculas/edit', pelicula.id]" mat-raised color="primary">
             <mat-icon>edit</mat-icon>
             Editar

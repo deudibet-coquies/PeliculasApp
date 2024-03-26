@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environments';
 // const URL_API_PRO = 'http://localhost:9096'
 // const URL_API_PEL = 'http://localhost:9095'
 
-const token ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEzODEyMzQsImV4cCI6MTcxMTQ2NzYzNCwiaWF0IjoxNzExMzgxMjM0fQ.bj0_MwkltPmBPVVaMNsBzssnqKHQUcPv6UAbchEam8Q'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -71,22 +71,25 @@ export class PeliculasService {
 
 
   crearPelicula(pelicula: Pelicula): Observable<Pelicula> {
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
-      .set('Authorization', token ) // Reemplaza 'tu_token' con tu token de autenticación
+    .set('Authorization',  `Bearer ${token}`) 
       .set('Content-Type', 'application/json');  
     return this.http.post<Pelicula>(`${this.urlApi}/api/peliculas`, pelicula, { headers });
   }
 
   actualizarPelicula(pelicula: Pelicula): Observable<Pelicula> {
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
-      .set('Authorization', token ) // Reemplaza 'tu_token' con tu token de autenticación
+      .set('Authorization',  `Bearer ${token}`) 
       .set('Content-Type', 'application/json');  
     return this.http.patch<Pelicula>(`${this.urlApi}/api/peliculas/${pelicula.id}`, pelicula, { headers });
   }  
 
   eliminarPelicula(peliculaId:number): Observable<boolean> {
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
-      .set('Authorization', token ) // Reemplaza 'tu_token' con tu token de autenticación
+      .set('Authorization',  `Bearer ${token}`) 
       .set('Content-Type', 'application/json'); 
       console.log('este el id a eliminar',peliculaId);
     return this.http.delete(`${this.urlApi}/api/peliculas/${peliculaId}`,{ headers }).pipe(
@@ -116,16 +119,4 @@ export class PeliculasService {
 }
 
 
-// {
-//   "statusCode": 200,
-//   "isSuccess": true,
-//   "errorMessages": [],
-//   "result": {
-//     "usuario": {
-//       "id": "2c9a098d-a61b-4aa7-a0b9-2f8f948f78f1",
-//       "userName": "Emilio@gmail.com",
-//       "nombre": "emilio coquies"
-//     },
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVtaWxpb0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MTEyMjUwNDIsImV4cCI6MTcxMTMxMTQ0MiwiaWF0IjoxNzExMjI1MDQyfQ.GYp08ypET1hkrPKxrtnVkyApvewSKPanmH_bPXj53Lw"
-//   }
-// }
+//

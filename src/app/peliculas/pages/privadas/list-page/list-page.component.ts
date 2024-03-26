@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Pelicula } from '../../interfaces/pelicula';
-import { PeliculasService } from '../../services/peliculas.service';
+import { Pelicula } from '../../../interfaces/pelicula';
+import { PeliculasService } from '../../../services/peliculas.service';
 
 @Component({
   selector: 'app-list-page',

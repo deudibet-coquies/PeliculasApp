@@ -2,15 +2,15 @@
     <span class="text-lg flex mb-4 justify-content-center">Login</span>
 
     <div class="flex mb-4 justify-content-center">
-        <img  src="./favicon.ico" alt="Icono" width="50" height="50">
+        <img  src="../../../../assets/logo2.jfif" alt="Icono" width="300" height="250">
     </div>
     <form class="grid" [formGroup]="loginForm">
-        <mat-form-field>
+        <mat-form-field class="col-12">
             <mat-label>Nombre de usuario</mat-label>
             <input matInput formControlName="nombreUsuario" name="nombreUsuario" required placeholder="Nombre de usuario">
         </mat-form-field>
     
-        <mat-form-field>
+        <mat-form-field class="col-12">
             <mat-label>Contraseña</mat-label>
             <input matInput formControlName="password" name="password" required type="password" placeholder="Contraseña">
         </mat-form-field>

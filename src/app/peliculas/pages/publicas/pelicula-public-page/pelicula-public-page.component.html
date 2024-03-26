@@ -1,0 +1,41 @@
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="push" [ngStyle]="{ width:'300px' }">  
+        <mat-toolbar>
+            <button mat-button color="primary" (click)="sidenav.toggle()">
+                Categorias
+            </button>
+            <span class="spacer"></span>
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <mat-list-item 
+            (click)="sidenav.toggle()" 
+            *ngFor="let item of categorias">
+                {{item.nombre}}
+            </mat-list-item>
+        </mat-nav-list>
+       
+    </mat-sidenav>
+
+    <mat-toolbar color="primary" title="Menú">
+        <button mat-button color="primary" (click)="sidenav.toggle()">
+               <span style="color: white;">Categorias</span> Categorias
+        </button>
+        <span class="spacer"></span>
+            <button (click)="onlogin()" mat-icon-button title="Iniciar sesión">
+                <mat-icon>
+                    person
+                </mat-icon>
+            </button>
+    </mat-toolbar>
+
+    <div class="p-6 grid bm-8 pt-3">
+        <div *ngFor="let pelicula of peliculas" 
+        class="col-12 sm:col-4 md:col-3 xl:col-2">
+            <peliculas-card [pelicula]="pelicula" [public]="false" ></peliculas-card>
+        </div>
+    </div>
+
+</mat-sidenav-container>
+
+    

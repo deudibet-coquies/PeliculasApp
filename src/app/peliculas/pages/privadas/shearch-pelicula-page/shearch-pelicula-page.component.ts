@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import { FormControl } from '@angular/forms';
-import { Pelicula } from '../../interfaces/pelicula';
-import { PeliculasService } from '../../services/peliculas.service';
+import { Pelicula } from '../../../interfaces/pelicula';
+import { PeliculasService } from '../../../services/peliculas.service';
 import { FormControl } from '@angular/forms';
 import { map, Observable, of, startWith } from 'rxjs';
 import { MatAutocompleteActivatedEvent } from '@angular/material/autocomplete';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PeliculasService } from '../../services/peliculas.service';
-import { Categoria } from '../../interfaces/Categoria';
-import { Pelicula } from '../../interfaces/pelicula';
+import { PeliculasService } from '../../../services/peliculas.service';
+import { Categoria } from '../../../interfaces/Categoria';
+import { Pelicula } from '../../../interfaces/pelicula';
 
 @Component({
   selector: 'app-categorias-pages',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Pelicula } from '../../interfaces/pelicula';
+import { Pelicula } from '../../../interfaces/pelicula';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PeliculasService } from '../../services/peliculas.service';
+import { PeliculasService } from '../../../services/peliculas.service';
 import { switchMap } from 'rxjs';
 
 

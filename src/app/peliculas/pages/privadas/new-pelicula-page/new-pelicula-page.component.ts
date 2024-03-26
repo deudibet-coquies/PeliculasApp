@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { PeliculasService } from '../../services/peliculas.service';
-import { Categoria, Clasificacion } from '../../interfaces/Categoria';
+import { PeliculasService } from '../../../services/peliculas.service';
+import { Categoria, Clasificacion } from '../../../interfaces/Categoria';
 import { forkJoin, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Pelicula } from '../../interfaces/pelicula';
+import { Pelicula } from '../../../interfaces/pelicula';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-new-pelicula-page',

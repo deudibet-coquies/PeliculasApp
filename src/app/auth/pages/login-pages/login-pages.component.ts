@@ -31,7 +31,7 @@ export class LoginPagesComponent implements OnInit {
     if( !this.loginForm.value ) return
     this.authService.login(this.loginForm.value).subscribe(res => {
       console.log('respuesta del login',{res});
-      this.router.navigate(['/'])
+      this.router.navigate(['/peliculas'])
     })
   }
 
